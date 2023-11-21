@@ -6,7 +6,7 @@ public class DBConnection {
     public static Connection connect(){
         Connection con = null;
         try{
-            con = DriverManager.getConnection("jdbc:sqlite:server/expenses.db");
+            con = DriverManager.getConnection("jdbc:sqlite:expenses.db");
 
             Statement stmt = con.createStatement();
             stmt.setQueryTimeout(30);
