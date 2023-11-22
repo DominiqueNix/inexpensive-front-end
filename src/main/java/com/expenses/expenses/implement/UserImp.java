@@ -59,23 +59,28 @@ public class UserImp implements UserInt {
 
     //method that checks if a user exists (used in sign up and login methods)
     public boolean doesUserExist(String username){
-        boolean bool = false;
+       ArrayList<Boolean> bool = new ArrayList<>();
         Connection con = DBConnection.connect();
         try{
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("select username from users");
             while(rs.next()){
+                System.out.println(rs.getString("username"));
                 String existingUserName = rs.getString("username");
                 if(existingUserName.equals(username)){
-                    bool= true;
+                    bool.add(true);
                 } else{
-                    bool= false;
+                    bool.add(false);
                 }
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        return bool;
+        if(bool.contains(true)){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //check if user exsist, if not, create a new user, then get thier id.
@@ -184,6 +189,7 @@ public class UserImp implements UserInt {
         try{
             Statement stmt = con.createStatement();
             stmt.executeUpdate("delete from users where id="+id);
+            stmt.executeUpdate("delete from expenses where userId="+id);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
