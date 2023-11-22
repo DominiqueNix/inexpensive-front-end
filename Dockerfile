@@ -13,6 +13,7 @@ COPY --from=build /target/expenses-0.0.1-SNAPSHOT.jar expenses.jar
 EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "expenses.jar"]
+
 # WORKDIR /app 
 
 # COPY mnvw .
